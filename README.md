@@ -31,3 +31,5 @@ Assuming all these run without error the  following script in ShinMetiui/plots/ 
 which will first run the Gnuplot code to generate a bunch of TeX and then convert it to PDF. 
 
 The folder ShinMetiu/ext_exact_tdnd contains the exact nuclear density, solving the full 2D TDSE, for this model from a separate code and this is what is is used in the plotting comparisons.
+
+### Further info/instruction/discussion will be forthcoming
