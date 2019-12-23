@@ -1,0 +1,1 @@
+Code for ["On the numerical solution of the exact factorization equations"](https://aip.scitation.org/doi/10.1063/1.5090802)

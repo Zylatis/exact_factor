@@ -1,0 +1,8 @@
+TODO.txt
+ShinMetiu/*
+!ShinMetiu/*.config
+!ShinMetiu/ext_exact_tdnd
+!ShinMetiu/initwfn
+!ShinMetiu/NACV
+!ShinMetiu/BOPES
+
