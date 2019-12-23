@@ -5,4 +5,7 @@ ShinMetiu/*
 !ShinMetiu/initwfn
 !ShinMetiu/NACV
 !ShinMetiu/BOPES
+!ShinMetiu/plots/*.sh
+!ShinMetiu/plots/*.dat
+
 
