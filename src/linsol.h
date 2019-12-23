@@ -12,24 +12,22 @@
 // A BUNCH OF FUNCTIONS FOR LINEAR ALGEBRA STUFF 
 /////////////////////////////////////////////////////////////////////////////////////
 
+// Hacky function to enable reduction on complex<double> alias
+void dcomp_sum_inplace( dcomp &a, dcomp &b){
+	a += b;
+}
+
+#pragma omp declare reduction(dcompPlus: dcomp: dcomp_sum_inplace(omp_out, omp_in))
 // Compute dot product of two complex vectors
 // Here dot product represents inner product on vector space, hence the conjugate
 // Concerning that the OpenMP part here doesn't seem to lead to more core usage, need better profiling!
 dcomp  dot_product( vector< dcomp  > &v1, vector<dcomp> &v2, int &l){
 	dcomp sum = 0.;
-	vector<dcomp> par_sum;
-	par_sum.resize(n_threads);
-	#pragma omp parallel for
+	#pragma omp parallel for reduction(dcompPlus:sum)
 	for(int i = 0; i<l;i++){
-		int id = omp_get_thread_num();
-		par_sum[ id ] += conj( v1[i] )*v2[i];
+		sum += conj( v1[i] )*v2[i];
 	}
-	
-	//do serial summation of parallel bits
-	for(int c = 0;c<n_threads; c++){
-		sum += par_sum[c];
-	}
-	
+
 	return sum;
 }
 	
@@ -105,7 +103,8 @@ vector< dcomp > product_of_vectors( vector< vector< dcomp> > &vec_set){
 double vec_norm( vector< dcomp  >  &vec ){
 	double sum = 0;
 	for(int c = 0; c<l; c++){
-		sum += (double) pow(abs(vec[c]),2.);
+		double temp = fabs(vec[c]);
+		sum += temp*temp;
 	}
 	return sum*dr*dR;
 }
